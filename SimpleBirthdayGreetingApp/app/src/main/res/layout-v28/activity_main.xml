@@ -6,26 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
+    <TextView
         android:id="@+id/nameInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
-        android:textAlignment="center"
-        android:hint="@string/edit_text_name_input"
+        android:textFontWeight="30"
+        android:hint="Enter Your Name Here!"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints=""
-        android:inputType="textPersonName" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/createBirthdayCardButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:textAlignment="center"
-        android:text="@string/create_birthday_card_button"
+        android:text="Create Birthday Card"
         android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

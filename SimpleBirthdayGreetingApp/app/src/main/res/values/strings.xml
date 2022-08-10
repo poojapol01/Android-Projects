@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Simple Birthday Greeting App</string>
+    <string name="edit_text_name_input">Enter Your Name Here!</string>
+    <string name="create_birthday_card_button">Create Birthday Card</string>
 </resources>

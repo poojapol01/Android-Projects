@@ -25,9 +25,11 @@ public class MainActivity extends AppCompatActivity {
         birthdayGreetingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                String str = eText.getText().toString();
-//                Toast.makeText(getBaseContext(), "Button is clicked and Name is: " +str, Toast.LENGTH_SHORT).show();
+                String nameData = eText.getText().toString();
+//                Toast.makeText(getBaseContext(), "Button is clicked and Name is: " +nameData, Toast.LENGTH_SHORT).show();
+
                   Intent intent = new Intent(MainActivity.this, BirthdayGreetingActivity.class);
+                  intent.putExtra("message_key", nameData);       //putExtra method put the value in key, value pair key is message_key by this key we will receive the value, and put the string
                   startActivity(intent);
             }
         });

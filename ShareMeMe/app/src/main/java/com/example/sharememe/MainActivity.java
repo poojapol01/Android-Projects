@@ -1,11 +1,14 @@
 package com.example.sharememe;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -15,6 +18,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private RequestQueue mRequestQueue;
     private JsonObjectRequest jsonObjectRequest;
     ImageView memeImgView;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +42,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         memeImgView = (ImageView) findViewById(R.id.memeImageView);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         LoadMeme();
     }
     private void LoadMeme(){
         String url = "https://meme-api.herokuapp.com/gimme";
+
+        progressBar.setVisibility(View.VISIBLE);
 
         //RequestQueue initialized
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -51,7 +62,22 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(JSONObject response) {
                     try {
                         String url = response.getString("url");
-                        Glide.with(getApplicationContext()).load(url).into(memeImgView);
+                        Glide.with(getApplicationContext()).load(url)
+                                .listener(new RequestListener<Drawable>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                        // log exception
+                                        Log.e("TAG", "Error loading image", e);
+                                        return false; // important to return false so the error placeholder can be placed
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        return false;
+                                    }
+                                })
+                                .into(memeImgView);
                         Log.d(TAG,"Response :" + response.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();

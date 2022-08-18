@@ -74,5 +74,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void NextMeme(View view) {
+        LoadMeme();
     }
 }

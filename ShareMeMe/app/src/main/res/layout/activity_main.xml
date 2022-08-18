@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:text="@string/nextButton"
         android:padding="32dp"
-        android:onClick="ShareMeme"
+        android:onClick="NextMeme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="@id/guideline"
         app:layout_constraintLeft_toLeftOf="parent" />
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:text="@string/shareButton"
         android:padding="32dp"
-        android:onClick="NextMeme"
+        android:onClick="ShareMeme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/guideline"
         app:layout_constraintRight_toRightOf="parent" />

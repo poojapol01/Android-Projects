@@ -3,6 +3,7 @@ package com.example.sharememe;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private JsonObjectRequest jsonObjectRequest;
     ImageView memeImgView;
     ProgressBar progressBar;
+    String currentImgURL;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
-                        String url = response.getString("url");
-                        Glide.with(getApplicationContext()).load(url)
+                        currentImgURL = response.getString("url");
+                        Glide.with(getApplicationContext()).load(currentImgURL)
                                 .listener(new RequestListener<Drawable>() {
                                     @Override
                                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -97,6 +100,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ShareMeme(View view) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT,"Hey, Checkout out this cool meme " +currentImgURL);
+        startActivity(Intent.createChooser(intent,"Share via"));
     }
 
     public void NextMeme(View view) {

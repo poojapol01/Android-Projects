@@ -32,12 +32,12 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
     //private Button btnRequest;
 
-    private RequestQueue mRequestQueue;
+    //private RequestQueue mRequestQueue;
     private JsonObjectRequest jsonObjectRequest;
     ImageView memeImgView;
     ProgressBar progressBar;
+    private String mUrlString = "https://meme-api.herokuapp.com/gimme";
     String currentImgURL;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +51,17 @@ public class MainActivity extends AppCompatActivity {
         LoadMeme();
     }
     private void LoadMeme(){
-        String url = "https://meme-api.herokuapp.com/gimme";
-
+        //Initially show the Progress Bar view.
         progressBar.setVisibility(View.VISIBLE);
 
         //RequestQueue initialized
-        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        //mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         try {
             //String url = getResources().getString(R.string.url);
-            JSONObject object = new JSONObject();
+            //JSONObject object = new JSONObject();
+
             //String Request initialized
-            jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, mUrlString, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
                                     @Override
                                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                        //hide the Progress Bar view.
                                         progressBar.setVisibility(View.INVISIBLE);
                                         return false;
                                     }
@@ -94,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
                     Log.i(TAG,"Error :" + error.toString());
                 }
             });
-            mRequestQueue.add(jsonObjectRequest);
+            //mRequestQueue.add(jsonObjectRequest);
+            MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
         } catch (Exception e) {
             e.printStackTrace();
         }

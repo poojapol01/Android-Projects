@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide(); //hide the title bar
         setContentView(R.layout.activity_main);
 
         memeImgView = (ImageView) findViewById(R.id.memeImageView);
